@@ -63,19 +63,25 @@ const postModel = model("Post", postSchema)
 
 // Suchen Sie in der Datenbank nach einem Benutzer mit einem bestimmten Namen und geben Sie alle seine Posts aus.
 
-const findUsername = await userModel.find({ name: "Moon Goose" })
-// console.log(findUsername);
+const findUsername = await userModel.find({ name: "Moon Goose" });
 
-const findUserPostAll = await postModel.find({ author: "6489bdc8ad4a425234c8e524" })
-// console.log(findUserPostAll);
+if (findUsername.length > 0) {
+    const userId = findUsername[0]._id;
+
+    const findUserPostAll = await postModel.find({ author: userId });
+
+    console.log(findUserPostAll);
+} else {
+    console.log("Author nicht gefunden.");
+}
 
 
 // Suchen Sie in der Datenbank nach einem Post mit einem bestimmten Titel und geben Sie den Autor dieses Posts aus.
 
 const findUserPosts = await postModel.find({ title: "New Animal: Moongooses" })
-// console.log(findUserPosts[0].author);
+console.log(findUserPosts[0].author);
 
 
-// ===== CIAO KAKAO LIEBE DATENBANK
+// ===== CIAO KAKAO, LIEBE DATENBANK <3 =======
 
 await mongoose.disconnect();
